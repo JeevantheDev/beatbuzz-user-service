@@ -24,11 +24,12 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.digitalocean.com
           docker build -t beatbuzz-user-service .
-          docker tag beatbuzz-user-service your-digitalocean-registry/beatbuzz-user-service
-          docker push your-digitalocean-registry/beatbuzz-user-service
+          docker tag beatbuzz-user-service registry.digitalocean.com/beatbuzz-services/beatbuzz-user-service
+          docker push registry.digitalocean.com/beatbuzz-services/beatbuzz-user-service
+
 
       - name: Deploy to DigitalOcean Droplet
         run: |
-          ssh root@139.59.89.111 'docker pull your-digitalocean-registry/beatbuzz-user-service && docker-compose up -d'
+          ssh root@139.59.89.111 'docker pull beatbuzz-services/beatbuzz-user-service && docker-compose up -d'
