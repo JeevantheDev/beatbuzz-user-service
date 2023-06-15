@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - 14
+
+services:
+  - docker
+
+before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+install:
+  - npm install
+
+script:
+  - npm test
+
+after_success:
+  - docker build -t beatbuzz-user-service .
+  - docker tag beatbuzz-user-service your-digitalocean-registry/beatbuzz-user-service
+  - docker push your-digitalocean-registry/beatbuzz-user-service
+  - ssh root@139.59.89.111 'docker pull your-digitalocean-registry/beatbuzz-user-service && docker-compose up -d'
