@@ -18,7 +18,11 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Login to DigitalOcean Container Registry
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin registry.digitalocean.com
+        run: |
+          echo $DOCKER_USERNAME >> secrets.DOCKER_USERNAME
+          echo $DOCKER_PASSWORD >> secrets.DOCKER_PASSWORD
+          echo $DIGITALOCEAN_REGISTRY_NAME >> secrets.DIGITALOCEAN_REGISTRY_NAME
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin registry.digitalocean.com
 
       - name: Build and push Docker image
         run: |
