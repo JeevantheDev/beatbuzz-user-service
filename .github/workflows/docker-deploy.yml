@@ -7,29 +7,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DigitalOcean Container Registry
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin registry.digitalocean.com
 
       - name: Build and push Docker image
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.digitalocean.com
-          docker build -t beatbuzz-user-service .
-          docker tag beatbuzz-user-service registry.digitalocean.com/beatbuzz-services/beatbuzz-user-service
-          docker push registry.digitalocean.com/beatbuzz-services/beatbuzz-user-service
-
-
-      - name: Deploy to DigitalOcean Droplet
-        run: |
-          ssh root@139.59.89.111 'docker pull beatbuzz-services/beatbuzz-user-service && docker-compose up -d'
+          docker buildx create --use
+          docker buildx build --platform linux/amd64 --push -t registry.digitalocean.com/${{ secrets.DIGITALOCEAN_REGISTRY_NAME }}/beatbuzz-user-service .
