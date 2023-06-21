@@ -1,5 +1,7 @@
 node_modules
 yarn-error.log
 package-lock.json
+.env
+.env-production
 # Local Netlify folder
 .netlify
