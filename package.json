@@ -1,23 +1,29 @@
 {
   "name": "beatbuzz-user-service",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "BeatBuzz user service",
+  "main": "functions/server.js",
   "scripts": {
+    "build": "NODE_ENV=production netlify-lambda build src",
+    "dev": "NODE_ENV=development netlify-lambda serve src",
     "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.0",
-    "cookie-parser": "^1.4.6",
+    "bcryptjs": "2.4.3",
+    "cookie-parser": "1.4.5",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
+    "express": "4.17.1",
+    "jsonwebtoken": "8.5.1",
+    "netlify-lambda": "1.4.3",
     "nodemon": "^2.0.22",
-    "pg": "^8.10.0",
+    "pg": "^8.11.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.31.0"
+    "sequelize": "^6.31.0",
+    "sequelize-auto": "^0.5.1",
+    "serverless-http": "1.9.1"
   }
 }

@@ -1,0 +1,15 @@
+[build]
+  functions = "functions"
+
+[dev]
+  publish="dist"
+  port = 7998
+
+[dev.environment]
+  NODE_ENV = "development"
+  secretKey= "dsjfsdjfgdjhfgdjhgfdjhdfgjhdfj"
+  USER_NAME = "postgres"
+  PASSWORD = "root"
+  DB = "beatbuzz-user-service"
+  HOST = "localhost"
+  DB_PORT = 5432
