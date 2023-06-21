@@ -1,5 +1,6 @@
 [build]
   functions = "functions"
+  command = "netlify build"
   publish = "dist"
   NODE_ENV = "production"
 
