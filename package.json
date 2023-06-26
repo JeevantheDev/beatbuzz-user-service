@@ -4,7 +4,7 @@
   "description": "BeatBuzz user service",
   "main": "functions/server.js",
   "scripts": {
-    "build": "netlify-lambda build src",
+    "build": "NODE_OPTIONS='--openssl-legacy-provider' netlify-lambda build src",
     "dev": "NODE_ENV=development netlify-lambda serve src",
     "start": "nodemon index.js"
   },
