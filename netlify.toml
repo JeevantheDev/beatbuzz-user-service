@@ -1,7 +1,6 @@
 [build]
   command = "npm install && npm run build"
   functions = "functions"
-  publish = "dist"
   NODE_ENV = "production"
 
 [dev]
