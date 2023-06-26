@@ -3,9 +3,6 @@
   functions = "functions"
   NODE_ENV = "production"
 
-[[plugins]]
-  package = "netlify-plugin-functions-install-node"
-  
 [dev]
   publish="dist"
   port = 7998
