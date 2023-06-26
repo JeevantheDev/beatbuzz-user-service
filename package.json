@@ -4,7 +4,7 @@
   "description": "BeatBuzz user service",
   "main": "functions/server.js",
   "scripts": {
-    "build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build src",
+    "build": "netlify-lambda build src",
     "dev": "NODE_ENV=development netlify-lambda serve src",
     "start": "nodemon index.js"
   },
